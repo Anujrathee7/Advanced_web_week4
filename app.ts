@@ -1,7 +1,7 @@
 import express , {Express} from "express"
 import path from "path"
 
-import router from "./src/index"
+import router from "./src/routes/index"
 
 
 

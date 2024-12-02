@@ -1,11 +1,7 @@
+document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("todoForm");
-
   const messageElement = document.getElementById("message");
-
   const searchForm = document.getElementById("searchForm");
-
-
-
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -17,19 +13,12 @@
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, todo }),
       });
-
       const message = await response.text();
-      if (response.ok) {
-        messageElement.textContent = message;
-      }
+      messageElement.textContent = message;
     } catch (error) {
       messageElement.textContent = "Error: Could not add todo.";
     }
   });
-
-
-
-
 
   searchForm.addEventListener("submit", async (e) => {
     e.preventDefault();
@@ -40,69 +29,49 @@
       const todoList = document.getElementById("todoList");
       todoList.innerHTML = "";
 
-      data.todos.forEach((todo, index) => {
-        console.log(todo);
+      data.todos.forEach((todo) => {
         const li = document.createElement("li");
         const deleteTodo = document.createElement("a");
+        const checkbox = document.createElement("input");
 
         deleteTodo.href = "#";
         deleteTodo.textContent = "Delete";
         deleteTodo.classList.add("delete-task");
-        deleteTodo.setAttribute('data-index', index.toString());
-        li.textContent = todo;
-        li.appendChild(deleteTodo)
-        todoList.appendChild(li);
-      });
+        checkbox.type = "checkbox";
+        checkbox.checked = todo.checked;
+        checkbox.className = "checkBoxes";
 
-      const button = document.createElement("button");
-      button.id = "deleteUser";
-      button.innerText = "Delete";
-
-      button.addEventListener("click", async () => {
-        const deleteUser = await fetch("/delete", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name }),
+        checkbox.addEventListener("change", async () => {
+          await fetch("/updateTodo", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              todo: todo.todo,
+              checked: checkbox.checked,
+            }),
+          });
         });
 
-        const res = await deleteUser.text();
-        if (deleteUser.ok) {
-          todoList.innerHTML = "";
-        }
+        deleteTodo.addEventListener("click", async () => {
+          await fetch("/update", {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              name,
+              todoIndex: data.todos.indexOf(todo),
+            }),
+          });
+          li.remove();
+        });
+
+        li.textContent = todo.todo;
+        li.appendChild(checkbox);
+        li.appendChild(deleteTodo);
+        todoList.appendChild(li);
       });
-
-      todoList.appendChild(button);
-
-      console.log;
     } catch (error) {
-      console.log(error);
-      return;
+      console.error(error);
     }
   });
-
-
-  document.getElementById('todoList').addEventListener('click', async (event)=>{
-    const target = event.target
-
-    if(target && target.classList.contains('delete-task')){
-      const todoElement = target;
-      const index = todoElement.getAttribute('data-index');
-      const userName = document.getElementById('searchInput').value;
-      
-      const deleteTodo = await fetch('/update',{
-        method: "PUT",
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          name: userName,
-          todoIndex: index
-        })
-      })
-
-      const response = await deleteTodo.text()
-
-      console.log(response)
-        todoElement.closest('li').remove();
-    }
-  })
+});

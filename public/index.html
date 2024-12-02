@@ -3,24 +3,49 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <title>To do Form</title>
 </head>
 <body>
-    <form id="todoForm">
-        <input type="text" id="userInput">
-        <input type="text" id="todoInput">
-        <button id="submit-data">Submit</button>
-    </form>
-
-    <p id="message"></p>
-
-    <form id="searchForm">
-        <input type="text" id="searchInput">
-        <button id="search">Search</button>
-    </form>
-
-    <ul id="todoList"></ul>
-    <script src="main.js"></script>
+    <nav>
+      <div class="nav-wrapper blue">
+        <a href="#" class="brand-logo center">To-Do App</a>
+      </div>
+    </nav>
     
-</body>
-</html>
+    <div class="container">
+      <div class="row">
+        <!-- Add Todo Section -->
+        <div class="col s12">
+          <h5>Add Todo</h5>
+          <form id="todoForm">
+            <div class="input-field">
+              <input type="text" id="userInput" placeholder="User Name">
+            </div>
+            <div class="input-field">
+              <input type="text" id="todoInput" placeholder="Todo">
+            </div>
+            <button type="submit" class="btn blue">Submit</button>
+          </form>
+          <p id="message"></p>
+        </div>
+      </div>
+      
+      <div class="row">
+        <!-- Search Todos Section -->
+        <div class="col s12">
+          <h5>Search Todos</h5>
+          <form id="searchForm">
+            <div class="input-field">
+              <input type="text" id="searchInput" placeholder="User Name">
+            </div>
+            <button type="submit" class="btn blue">Search</button>
+          </form>
+          <ul id="todoList" class="collection"></ul>
+        </div>
+      </div>
+    </div>
+  
+    <script src="main.js"></script>
+  </body>
+  </html>
