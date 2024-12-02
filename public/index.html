@@ -7,45 +7,46 @@
     <title>To do Form</title>
 </head>
 <body>
+    <!-- Navbar -->
     <nav>
-      <div class="nav-wrapper blue">
-        <a href="#" class="brand-logo center">To-Do App</a>
-      </div>
+        <div class="nav-wrapper blue">
+            <a href="#" class="brand-logo center">To-Do App</a>
+        </div>
     </nav>
-    
+
+    <!-- Container for the form and search -->
     <div class="container">
-      <div class="row">
-        <!-- Add Todo Section -->
-        <div class="col s12">
-          <h5>Add Todo</h5>
-          <form id="todoForm">
-            <div class="input-field">
-              <input type="text" id="userInput" placeholder="User Name">
+        <div class="row">
+            <!-- Add Todo Section -->
+            <div class="col s12 m6">
+                <h5>Add Todo</h5>
+                <form id="todoForm">
+                    <div class="input-field">
+                        <input type="text" id="userInput" class="validate" placeholder="User Name">
+                    </div>
+                    <div class="input-field">
+                        <input type="text" id="todoInput" class="validate" placeholder="Todo">
+                    </div>
+                    <button type="submit" id="submit-data" class="btn blue">Submit</button>
+                </form>
+                <p id="message"></p>
             </div>
-            <div class="input-field">
-              <input type="text" id="todoInput" placeholder="Todo">
+
+            <!-- Search Todos Section -->
+            <div class="col s12 m6">
+                <h5>Search Todos</h5>
+                <form id="searchForm">
+                    <div class="input-field">
+                        <input type="text" id="searchInput" class="validate" placeholder="Search User">
+                    </div>
+                    <button type="submit" id="search" class="btn blue">Search</button>
+                </form>
+                
+                <ul id="todoList" class="collection"></ul>
             </div>
-            <button type="submit" class="btn blue">Submit</button>
-          </form>
-          <p id="message"></p>
         </div>
-      </div>
-      
-      <div class="row">
-        <!-- Search Todos Section -->
-        <div class="col s12">
-          <h5>Search Todos</h5>
-          <form id="searchForm">
-            <div class="input-field">
-              <input type="text" id="searchInput" placeholder="User Name">
-            </div>
-            <button type="submit" class="btn blue">Search</button>
-          </form>
-          <ul id="todoList" class="collection"></ul>
-        </div>
-      </div>
     </div>
-  
+
     <script src="main.js"></script>
-  </body>
-  </html>
+</body>
+</html>

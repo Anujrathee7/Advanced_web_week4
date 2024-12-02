@@ -1,7 +1,6 @@
 import express , {Express} from "express"
 import path from "path"
-import mongoose from "mongoose"
-
+import mongoose, { Connection } from 'mongoose' 
 import router from "./src/routes/index"
 
 
@@ -15,12 +14,12 @@ app.use(express.json())
 
 app.use(express.static(path.join(__dirname,"../public")));
 
-mongoose.connect("mongodb://127.0.0.1:27017/testdb", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  } as mongoose.ConnectOptions)
-    .then(() => console.log("MongoDB connected successfully"))
-    .catch((err) => console.error("MongoDB connection error:", err));
+const mongoDB: string = "mongodb://127.0.0.1:27017/testdb"
+mongoose.connect(mongoDB)
+mongoose.Promise = Promise
+const db: Connection = mongoose.connection
+
+db.on("error", console.error.bind(console, "MongoDB connection error"))
 
 app.use("/",router)
 
